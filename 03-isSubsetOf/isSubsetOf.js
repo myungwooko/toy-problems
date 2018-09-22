@@ -24,4 +24,25 @@
 
 Array.prototype.isSubsetOf = function(array){
   // Your code here
+  var count = 0;
+  for(var i = 0; i < this.length; i++) {
+    if(array.indexOf(this[i]) !== -1) {
+      count++;
+    }
+  }
+  if(count === this.length) {
+    return true;
+  } else {
+    return false;
+  }
 };
+
+
+var a = ['commit','push']
+console.log(a.isSubsetOf(['commit','rebase','push','blame'])) // true
+
+var b = ['merge','reset','reset']
+console.log(b.isSubsetOf(['reset','merge','add','commit'])) // true 
+
+var c = ['mer','res','re']
+console.log(c.isSubsetOf(['reset','merge','add','commit'])) // false

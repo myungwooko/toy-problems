@@ -46,3 +46,4 @@ console.log(b.isSubsetOf(['reset','merge','add','commit'])) // true
 
 var c = ['mer','res','re']
 console.log(c.isSubsetOf(['reset','merge','add','commit'])) // false
+//

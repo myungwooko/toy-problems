@@ -83,10 +83,6 @@ rockPaperScissors = function (number) {
 //   [ 'scissors', 'rock', 'paper', 'scissors', 'scissors' ] ]
 // ]
 //
-
-
-
-
-
+//
 
 

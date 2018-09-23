@@ -20,9 +20,58 @@
  *
  */
 
+// just by for loop
+// var nthFibonacci = function (n) {
+//   // TODO: implement me!
+//   var fib = [0, 1]
+//   if(n === 0) {
+//     return 0;
+//   } else if(n === 1) {
+//     return 1;
+//   } else {
+//     for(var i = 2; i <= n; i++) {
+//       fib[i] = fib[i-1] + fib[i-2];
+//     }
+//     return fib[fib.length-1]
+//   }
+// };
+
+// var a = nthFibonacci(2);  // => 1
+// var b = nthFibonacci(3);  // => 2
+// var c = nthFibonacci(30); // => 832040
+
+// console.log(a)
+// console.log(b)
+// console.log(c)
+
+
+
+//recursive solution
 var nthFibonacci = function (n) {
   // TODO: implement me!
+  var fib = [0, 1];
+  var count = 0;
+  if(n === 0) {
+    return 0;
+  } else if(n === 1) {
+    return 1;
+  } else {
+    return recursion(count);
+  }
+  function recursion(count) {
+    if(count === n-1) {
+      return fib[count-1] + fib[count];
+    }
+    fib[count+2] = fib[count] + fib[count+1]
+    count++;
+    return recursion(count)
+  }
 };
 
+var a = nthFibonacci(2);  // => 1
+var b = nthFibonacci(3);  // => 2
+var c = nthFibonacci(30); // => 832040
 
-
+console.log(a)
+console.log(b)
+console.log(c)

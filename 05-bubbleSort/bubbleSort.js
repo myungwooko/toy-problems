@@ -59,5 +59,5 @@ var bubbleSort = function(array) {
   }
 };
 
-var a = bubbleSort([2, 1, 3, 7, 5, 2, 1, 8, 3, 1]); // yields [1, 2, 3]
+var a = bubbleSort([2, 1, 3, 7, 5, 2, 1, 8, 3, 1]); // yields [ 1, 1, 1, 2, 2, 3, 3, 5, 7, 8 ]
 console.log(a)

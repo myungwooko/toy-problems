@@ -31,11 +31,33 @@
 */
 
 // Introduce i into the global scope so we can test function efficiency
-var i;
+var countForFirst = 0;
+var count = 0;
 
 // Feel free to add helper functions if needed.
 
 
 var bubbleSort = function(array) {
   // Your code here.
+  if(countForFirst) {
+    count = 0;
+  } else {
+    countForFirst++;
+  }
+  for(var i = 1; i < array.length; i++) {
+    if(array[i] < array[i-1]) {
+      var save  = array[i]
+      array[i] = array[i-1];
+      array[i-1] = save;
+      count++
+    }
+  }
+  if(count === 0) {
+    return array;
+  } else {
+    return bubbleSort(array)
+  }
 };
+
+var a = bubbleSort([2, 1, 3, 7, 5, 2, 1, 8, 3, 1]); // yields [1, 2, 3]
+console.log(a)

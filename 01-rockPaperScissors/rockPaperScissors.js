@@ -17,7 +17,7 @@
 *
 */
 
-//Done
+//Using recursion------------------------------------------------------------------------------------------------------------------------
 rockPaperScissors = function (number) {
   var model = ["rock", "paper", "scissors"];
   result = []
@@ -85,4 +85,37 @@ rockPaperScissors = function (number) {
 //
 //
 
+//using tenary and decimal---------------------------------------------------------------------------------------------------------------
+rockPaperScissors1 = function (number) {
+  var result = [];
+  var maxForTenary = '';
+  for(var i = 0; i < number; i++) {
+    maxForTenary += 2;
+  }
+  var maxForDecimal = Number.parseInt(maxForTenary, 3); 
+    for(var i = 0; i <= maxForDecimal; i++) {
+      var ele = (i.toString(3)).toString();
+      var length = ele.length;
+      for(var k = 0; k < number - length; k++) {
+        ele = "0" + ele;
+      }
+      ele = ele.split('')
+      for(var z = 0; z < ele.length; z++) {
+        if(ele[z] === "0") {
+          ele[z] = "rock"
+        } else if(ele[z] === "1") {
+          ele[z] = "scissors"
+        } else if(ele[z] === "2") {
+          ele[z] = "paper"
+        }
+      }
+      result.push(ele);
+    }
+  return result;
+}
 
+
+
+
+var a = rockPaperScissors1(4);
+console.log(a)

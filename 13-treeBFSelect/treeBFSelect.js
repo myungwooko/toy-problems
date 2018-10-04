@@ -39,6 +39,28 @@ var Tree = function(value){
 
 Tree.prototype.BFSelect = function(filter) {
   // return an array of values for which the function filter(value, depth) returns true
+  var obj = {}
+  var result = [];
+
+  function applier(root, depth, func) {
+    if(func(root.value, depth)) {
+      if(obj[depth]) {
+        obj[depth] = obj[depth].concat([root.value]);
+      } else {
+        obj[depth] = [root.value];
+      }
+    }
+    if(root.children.length !== 0) {
+      for(var i = 0; i < root.children.length; i++) {
+        applier(root.children[i], depth+1, func)
+      }
+    }
+  }
+  applier(this, 0, filter);
+  for(var key in obj) {
+    result = result.concat(obj[key])
+  }
+  return result;
 };
 
 /**
@@ -94,3 +116,22 @@ Tree.prototype.removeChild = function(child){
     throw new Error("That node is not an immediate child of this tree");
   }
 };
+
+
+var root1 = new Tree(1);
+var branch2 = root1.addChild(2);
+var branch3 = root1.addChild(3);
+var leaf4 = branch2.addChild(4);
+var leaf5 = branch2.addChild(5);
+var leaf6 = branch3.addChild(6);
+var leaf7 = branch3.addChild(7);
+var a = root1.BFSelect(function (value, depth) {
+  return value % 2;
+})
+console.log(a)// [1, 3, 5, 7]
+
+var b = root1.BFSelect(function (value, depth) {
+  return depth === 1;
+})
+console.log(b)// [2, 3]
+

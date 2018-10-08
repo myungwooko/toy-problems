@@ -40,16 +40,124 @@
 
 
 var Range = function(start, end, step) {
+    this.start = start;
+    this.end = end;
+    this.step = step
+    this.length = arguments.length
 };
 
 Range.prototype.size = function () {
+    if(this.length === 1) {
+        return 'size is infinity'
+    } else if (this.length === 2) {
+        if(typeof this.step === 'undefined') {
+            if(this.start > this.end) {
+                return this.start - this.end + 1
+            } else if(this.start === this.end) {
+                return 0
+            } else {
+                return this.end - this.start +1
+            }
+        } else if(typeof this.end === 'undefined') {
+            return 'size is infinity'
+        }
+    } else {
+        var count = 0
+        for(var i = this.start; i <= this.end; i += this.step) {
+            count += 1;
+        }
+        return count;
+    }
 };
 
 Range.prototype.each = function (callback) {
+    if(this.length === 1) {
+        var ele = this.start
+        while(true) {
+            callback(ele);
+            ele++
+        }
+    } else if (this.length === 2) {
+        if(typeof this.step === 'undefined') {
+            if(this.start > this.end) {
+                for(var i = this.start; i >= this.end; i--) {
+                    callback(i)
+                }
+            } else if(this.start === this.end) {
+                callback(this.start)
+            } else {
+                for(var i = this.start; i <= this.end; i++) {
+                    callback(i)
+                }
+            }
+        } else if(typeof this.end === 'undefined') {
+            var ele = this.start
+                while(true) {
+                    callback(ele);
+                    ele += this.step
+                }
+        }
+    } else {
+        for(var i = this.start; this.start > this.end ? i >= this.end : i <= this.end; i += this.step) {
+            callback(i)
+        }
+    }
 };
 
 Range.prototype.includes = function (val) {
+    if(this.length === 1) {
+        if(val >= this.start) {
+            return true
+        }
+    } else if (this.length === 2) {
+        if(typeof this.step === 'undefined') {
+            if(this.start > this.end) {
+                if(this.start > val && this.end < val) {
+                    return true;
+                }
+            } else if(this.start === this.end) {
+                if(this.start === val) {
+                    return true
+                }
+            } else {
+                if(this.start < val && this.end > val) {
+                    return true;
+                }
+            }
+        } else if(typeof this.end === 'undefined') {
+            var ele = this.start
+            if(step >= 0 && val >= this.start) {
+                while(val >= ele) {
+                    if(ele === val) {
+                        return true
+                    }
+                    ele += this.step
+                }
+            } else if(step < 0 && val < this.start) {
+                while(val <= ele) {
+                    if(ele === val) {
+                        return true
+                    }
+                    ele += this.step
+                }
+            }
+        }
+    } else {
+        for(var i = this.start; this.start > this.end ? i >= this.end : i <= this.end; i += this.step) {
+            if(val === i) {
+                return true;
+            }
+        }
+    }
+    return false;
 };
 
-var range = new Range(1);
+console.log("Who do we appreciate!?");
+var evenNumbers = new Range(2,8,2); // A range with the even numbers 2, 4, 6, and 8.
+ evenNumbers.each(function(val){
+   console.log(val+"!");
+ });
+ console.log(evenNumbers.size())      //should be 4
+ console.log(evenNumbers.includes(2)) //should be true 
+ console.log(evenNumbers.includes(3)) //should be false
 

@@ -36,7 +36,7 @@ var balancedParens = function(input) {
             if(storage.pop() !== '(')  return false; 
         }
     }
-    return storage.length === 0 ? true : false
+    return storage.length === 0 ? true : false;
 }
 
 
@@ -59,3 +59,5 @@ console.log(f)
 console.log(g)
 console.log(h)
 console.log(i)
+
+//powered by hv

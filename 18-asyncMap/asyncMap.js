@@ -39,12 +39,7 @@
  */
 
 
-function a () {
-  return 1
-}
-
 function asyncMap(tasks, callback) {
-  var a = JSON.stringify(tasks[0])
   var resultsArray = [];
   var resultsCount = 0;
    for (var i = 0; i < tasks.length; i++) {
@@ -65,12 +60,12 @@ var a = asyncMap([
   function(cb){
     setTimeout(function(){
       cb('one');
-    }, 8000);
+    }, 200);
   },
   function(cb){
     setTimeout(function(){
       cb('two');
-    }, 3000);
+    }, 100);
   }
  ],
   function(results){
@@ -79,5 +74,3 @@ var a = asyncMap([
     console.log(results); // ['one', 'two']
  });
  
- 
- console.log(a)

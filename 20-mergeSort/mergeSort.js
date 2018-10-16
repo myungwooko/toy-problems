@@ -95,39 +95,51 @@
  *
  */
 
-var mergeSort = function(array) {
+var mergeSort = function (array) {
   // Your code here.
   return handler.recursion(array);
 };
 
 const handler = {
-  order: ar => {
-    for (var i = 0; i < ar.length - 1; i++) {
-      for (var z = i + 1; z < ar.length; z++) {
-        if (ar[z] < ar[i]) {
-          let save = ar[i];
-          ar[i] = ar[z];
-          ar[z] = save;
-          i = 0;
-          break;
-        }
+  order: (ar1, ar2) => {
+    const arr = []
+    const num = ar1.length + ar2.length
+    if (ar1.length === 2) {
+      if (ar1[0] > ar1[1]) {
+        let save = ar1[0];
+        ar1[0] = ar1[1];
+        ar1[1] = save;
       }
     }
-    return ar;
+    if (ar2.length === 2) {
+      if (ar2[0] > ar2[1]) {
+        let save = ar2[0];
+        ar2[0] = ar2[1];
+        ar2[1] = save;
+      }
+    }
+    for (var i = 1; i <= num; i++) {
+      if (typeof ar2[0] === 'undefined' || ar1[0] <= ar2[0]) {
+        arr.push(ar1[0]);
+        ar1.splice(0, 1)
+      } else if (typeof ar1[0] === 'undefined' || ar2[0] <= ar1[0]) {
+        arr.push(ar2[0]);
+        ar2.splice(0, 1)
+      }
+    }
+    return arr;
   },
   recursion: arr => {
-    if (arr.length <= 2) {
-      return handler.order(arr);
-    }
     const almostHalf = Math.floor(arr.length / 2);
-    const arrL = handler.order(arr.slice(0, almostHalf));
-    const arrR = handler.order(arr.slice(almostHalf, arr.length));
-    return handler.order(
-      handler.recursion(arrL).concat(handler.recursion(arrR))
-    );
+    const arrL = arr.slice(0, almostHalf);
+    const arrR = arr.slice(almostHalf, arr.length);
+    if (arrL.length === 1 || arrR.length === 1) {
+      return handler.order(arrL, arrR)
+    }
+    return handler.order(handler.recursion(arrL), handler.recursion(arrR));
   }
 };
 
-const a = [150, 10034, 4, 7, 4, 3, 3009, 9, 1, 2, 10, 8, 18];
+const a = [150, 10034, 4, 7, 4, 3, 3009, 9, 1, 2, 10, 8, 18, -2, 488, 1.5];
 const b = mergeSort(a);
 console.log(b);

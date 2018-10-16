@@ -33,7 +33,7 @@
  * Illustration of a recursive approach:
  *
  *   1. Split the input array in half
- *   [4, 7, 4, 3, 9, 1, 2] -> [4, 7, 4], [3, 9, 1, 2
+ *   [4, 7, 4, 3, 9, 1, 2] -> [4, 7, 4], [3, 9, 1, 2]
  *
  *   2. Both sides are sorted recursively:
  *   [4, 7, 4] -> [4, 4, 7]
@@ -95,8 +95,39 @@
  *
  */
 
-
-
 var mergeSort = function(array) {
   // Your code here.
+  return handler.recursion(array);
 };
+
+const handler = {
+  order: ar => {
+    for (var i = 0; i < ar.length - 1; i++) {
+      for (var z = i + 1; z < ar.length; z++) {
+        if (ar[z] < ar[i]) {
+          let save = ar[i];
+          ar[i] = ar[z];
+          ar[z] = save;
+          i = 0;
+          break;
+        }
+      }
+    }
+    return ar;
+  },
+  recursion: arr => {
+    if (arr.length <= 2) {
+      return handler.order(arr);
+    }
+    const almostHalf = Math.floor(arr.length / 2);
+    const arrL = handler.order(arr.slice(0, almostHalf));
+    const arrR = handler.order(arr.slice(almostHalf, arr.length));
+    return handler.order(
+      handler.recursion(arrL).concat(handler.recursion(arrR))
+    );
+  }
+};
+
+const a = [150, 10034, 4, 7, 4, 3, 3009, 9, 1, 2, 10, 8, 18];
+const b = mergeSort(a);
+console.log(b);

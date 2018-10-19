@@ -37,13 +37,48 @@
  * ]
  * rotatedMatrix[0][0]; // 'D'
  * rotatedMatrix[3][2]; // 8
- *
+ * 
+ * 
+ * 
+ //  4x4 n번의 규칙
+//   00 03 
+//   01 13
+//   02 23
+//   03 33
+
+//   13 32
+//   23 31
+//   33 30
+
+//   32 20
+//   31 10
+//   30 00
+
+//   20 01
+//   10 02
+ 
+
+*
  * Extra credit:
  *  - Make your function operate on rectangular matrices (MxN rather than NxN).
  *  - Make your function accept a parameter for the direction of rotation (1 = clockwise, -1 = counterclockwise)
  */
 
-var rotateMatrix = function(matrix
-) {
-  // Your code here.
+var rotateMatrix = function(matrix) {
+  direction = direction || 1;
+  var m = matrix.length;
+  var n = matrix[0].length;
+  var output = [];
+
+  for (var i = 0; i < n; i++) {
+    output[i] = [];
+    for (var j = 0; j < m; j++) {
+      if (direction === 1) {
+        output[i][j] = matrix[m - j - 1][i];
+      } else {
+        output[i][j] = matrix[j][n - i - 1];
+      }
+    }
+  }
+  return output;
 };

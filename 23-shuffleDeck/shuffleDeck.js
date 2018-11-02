@@ -31,22 +31,41 @@
  *   See https://www.dartmouth.edu/~chance/teaching_aids/books_articles/Mann.pdf .
  */
 
-var shuffleDeck = function(deck) {
+var shuffleDeck = function (deck) {
   // Your code here
+  var copied_deck = deck.slice()
+  var random_card, random_index, current_card;
+  for (var i = 0; i < copied_deck.length; i++) {
+    random_index = Math.floor(Math.random() * copied_deck.length)
+    random_card = copied_deck[random_index]
+    current_card = copied_deck[i]
+    copied_deck[i] = random_card
+    copied_deck[random_index] = current_card
+  }
+  if (copied_deck[0] === deck[0]) {
+    var index_zero = copied_deck[0]
+    copied_deck[0] = copied_deck[copied_deck.length - 1]
+    copied_deck[copied_deck.length - 1] = index_zero
+  }
+  return copied_deck
 };
 
 // Ordered deck generator provided for your testing convenience
 // (You may alter this function, but an unaltered copy will be used for tests.)
-var orderedDeck = function() {
-  var suits = [ '♥', '♣', '♠', '♦' ];
-  var values = [ 'A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K' ];
+var orderedDeck = function () {
+  var suits = ['♥', '♣', '♠', '♦'];
+  var values = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'];
   var deck = [];
 
-  suits.forEach(function(suit) {
-    values.forEach(function(value) {
+  suits.forEach(function (suit) {
+    values.forEach(function (value) {
       deck.push(value + suit);
     });
   });
 
   return deck;
 };
+
+var a = orderedDeck();
+console.log(a)
+console.log(shuffleDeck(a))

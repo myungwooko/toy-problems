@@ -27,7 +27,6 @@
  * ];
  * matrix[0][0]; // 1
  * matrix[3][2]; // 'F'
- *
  * var rotatedMatrix = rotateMatrix(matrix); // Rotate 90 degrees clockwise
  * // rotatedMatrix is:
  * [ ['D',9,5,1],
@@ -37,35 +36,29 @@
  * ]
  * rotatedMatrix[0][0]; // 'D'
  * rotatedMatrix[3][2]; // 8
- * 
- * 
- * 
- //  4x4 n번의 규칙
-//   00 03 
-//   01 13
-//   02 23
-//   03 33
-
-//   13 32
-//   23 31
-//   33 30
-
-//   32 20
-//   31 10
-//   30 00
-
-//   20 01
-//   10 02
- 
-
-*
+ *      00 03
+ *            01 13
+ * 02 23
+ * 03 33
+ *      10 02
+ *            11 12
+ * 12 22
+ * 12 32
+ *      20 01
+ *            21 11
+ * 22 21
+ * 23 31
+ *      30 00
+ *            31 10
+ * 32 20
+ * 33 30
+ *
  * Extra credit:
  *  - Make your function operate on rectangular matrices (MxN rather than NxN).
  *  - Make your function accept a parameter for the direction of rotation (1 = clockwise, -1 = counterclockwise)
  */
-
-var rotateMatrix = function(matrix) {
-  direction = direction || 1;
+var rotateMatrix = function(matrix, direction) {
+  var direction = direction || 1;
   var m = matrix.length;
   var n = matrix[0].length;
   var output = [];
@@ -82,3 +75,14 @@ var rotateMatrix = function(matrix) {
   }
   return output;
 };
+
+var matrix = [
+  [1, 2, 3, 4],
+  [5, 6, 7, 8],
+  [9, "A", "B", "C"],
+  ["D", "E", "F", "G"]
+];
+
+var rotatedMatrix = rotateMatrix(matrix, -1);
+
+console.log(rotatedMatrix);

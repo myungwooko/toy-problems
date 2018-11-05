@@ -10,7 +10,7 @@
  * parent of the 3rd and 4th nodes, and the 2nd node will be the parent of the 5th and
  * 6th nodes. In a specific kind of binary heap, the binary min heap, every node is
  * less than its immediate children:
- * 
+ *
  *          0
  *     1         2
  *   3   4     5   6
@@ -49,7 +49,6 @@
  * https://www.cs.usfca.edu/~galles/visualization/Heap.html
  */
 
-
 // Below is a binary heap whose nodes are integers. Its storage is an array and
 // its `getRoot` method is already written. `BinaryHeap`'s `this._compare` method is hard-coded to return
 // whether the fist element passed into it is less than the second. Use it when comparing nodes.
@@ -66,22 +65,97 @@
 // Extra extra credit: Implement `heapSort`. `heapSort` takes an array, constructs it into a `BinaryHeap`
 // and then iteratively returns the root of the `BinaryHeap` until its empty, thus returning a sorted array.
 
+// * parentIndex = Math.floor( (index - 1) / 2 )
+// * childrenIndices = [index * 2 + 1, index * 2 + 2]
 
-function BinaryHeap () {
-  this._heap = [];
+function BinaryHeap() {
+  this._heap = [0, 3, 2, 7, 4, 3];
   // this compare function will result in a minHeap, use it to make comparisons between nodes in your solution
-  this._compare = function (i, j) { return i < j };
+  this.compare = function(i, j) {
+    return i <= j;
+  };
 }
 
 // This function works just fine and shouldn't be modified
-BinaryHeap.prototype.getRoot = function () {
+BinaryHeap.prototype.getRoot = function() {
   return this._heap[0];
-}
+};
 
-BinaryHeap.prototype.insert = function (value) {
+BinaryHeap.prototype.insert = function(value) {
   // TODO: Your code here
-}
+  this._heap.push(value);
+  var count = 0;
+  var index = this._heap.length - 1;
+  var compare = function(i, j) {
+    return i <= j;
+  };
+  if (this._heap.length > 1) {
+    return compare_with_parent(this._heap, index);
+  } else {
+    return;
+  }
 
-BinaryHeap.prototype.removeRoot = function () {
+  function compare_with_parent(heap, index) {
+    var parentIndex = Math.floor((index - 1) / 2);
+    if (heap[parentIndex] === undefined && count === 0) {
+      return;
+    } else if (heap[parentIndex] === undefined && count !== 0) {
+      count = 0;
+      compare_with_parent(heap, heap.length - 1);
+    } else if (heap[parentIndex] !== undefined) {
+      if (!compare(heap[parentIndex], heap[index])) {
+        var current_parent = heap[parentIndex];
+        heap[parentIndex] = heap[index];
+        heap[index] = current_parent;
+        count++;
+        return compare_with_parent(heap, parentIndex);
+      } else {
+        return;
+      }
+    }
+  }
+};
+
+BinaryHeap.prototype.removeRoot = function() {
   // TODO: Your code here
-}
+  this._heap[0] = this._heap[this._heap.length - 1];
+  this._heap.pop();
+  var count = 0;
+  var compare = function(i, j) {
+    return i <= j;
+  };
+  compare_with_child(this._heap, 0);
+  function compare_with_child(heap, index) {
+    var current_parent = heap[index];
+    if (
+      heap[index * 2 + 1] !== undefined &&
+      !compare(current_parent, heap[index * 2 + 1])
+    ) {
+      heap[index] = heap[index * 2 + 1];
+      heap[index * 2 + 1] = current_parent;
+      compare_with_child(heap, index * 2 + 1);
+      count++;
+    } else if (
+      heap[index * 2 + 2] !== undefined &&
+      !compare(heap[index], heap[index * 2 + 2])
+    ) {
+      heap[index] = heap[index * 2 + 2];
+      heap[index * 2 + 2] = current_parent;
+      count++;
+      compare_with_child(heap, index * 2 + 2);
+    } else if (heap[index * 2 + 1] === undefined && count !== 0) {
+      compare_with_child(heap, 0);
+    } else if (heap[index * 2 + 1] === undefined && count === 0) {
+      return;
+    }
+  }
+  return;
+};
+
+var a = new BinaryHeap();
+a.insert(1);
+console.log(1, a._heap);
+a.removeRoot();
+console.log(a._heap);
+a.removeRoot();
+console.log(a._heap);

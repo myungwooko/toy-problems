@@ -11,7 +11,7 @@
 
 // A Board class will be useful
 
-var makeBoard = function(n) {
+var makeBoard = function (n) {
   var board = [];
   for (var i = 0; i < n; i++) {
     board.push([]);
@@ -19,15 +19,47 @@ var makeBoard = function(n) {
       board[i].push(false);
     }
   }
-  board.togglePiece = function(i, j) {
+  board.togglePiece = function (i, j) {
     this[i][j] = !this[i][j];
   }
-  board.hasBeenVisited = function(i, j) {
+  board.hasBeenVisited = function (i, j) {
     return !!this[i][j];
   }
   return board;
 };
 
-var robotPaths = function(n, board, i, j) {
-}
+var robotPaths = function (n) {
+  var count = 0;
+  var board = makeBoard(n);
 
+  function finding_path(i, j) {
+    board.togglePiece(i, j)
+    if (i === n - 1 && j === n - 1) {
+      count++
+    } else {
+      if (j - 1 >= 0 && !board.hasBeenVisited(i, j - 1)) {
+        finding_path(i, j - 1)
+        board.togglePiece(i, j - 1)
+      }
+      if (i - 1 >= 0 && !board.hasBeenVisited(i - 1, j)) {
+        finding_path(i - 1, j)
+        board.togglePiece(i - 1, j)
+      }
+      if (j + 1 < n && !board.hasBeenVisited(i, j + 1)) {
+        finding_path(i, j + 1)
+        board.togglePiece(i, j + 1)
+      }
+      if (i + 1 < n && !board.hasBeenVisited(i + 1, j)) {
+        finding_path(i + 1, j)
+        board.togglePiece(i + 1, j)
+      }
+    }
+  };
+  finding_path(0, 0)
+  return count;
+};
+
+
+
+
+console.log(robotPaths(3));

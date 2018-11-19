@@ -29,5 +29,4 @@ var sumArray = array => {
 console.log(sumArray([10, 1, 4, 5, -1, 1000, 3])); // => 1022
 console.log(sumArray([1, 2, 3, -4])); // 6
 console.log(sumArray([1, 2, 3, -4, 5])); // 7
-console.log(sumArray([4, -1, 5])); // => 8
 console.log(sumArray([10, -11, 11])); // 11

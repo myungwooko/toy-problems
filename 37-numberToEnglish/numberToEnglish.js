@@ -215,7 +215,89 @@ console.log(c);
 console.log(d);
 console.log(e);
 
-// ref
+
+
+
+
+
+
+// ref by jjs
+// Number.prototype.toEnglish = function () {
+//   var num = this.toString();
+//   if(num.indexOf('.') !== -1){
+//     var decimalArr = num.split('.')
+//     var mother = numbersToPlace[Math.pow(10,decimalArr[1].length)] || toEnglishForInteger(Math.pow(10,decimalArr[1].length))
+//     if(Number(decimalArr[1])===1){
+//       return toEnglishForInteger(Number(decimalArr[1]).toString())+' '+mother.split(' ').join('-') + 'th'
+//     }
+//     if(decimalArr[0] == 0){
+//       return toEnglishForInteger(Number(decimalArr[1]).toString())+' '+mother.split(' ').join('-') + 'ths'
+//     }
+//     return toEnglishForInteger(decimalArr[0]) + ' and ' + toEnglishForInteger(Number(decimalArr[1]).toString())+' '+mother.split(' ').join('-') +'ths'
+//   }else{
+//     return toEnglishForInteger(num);
+//   }
+// };
+
+// var toEnglishForInteger = function (number){
+//   if(numbersToWords.hasOwnProperty(number)){
+//     return numbersToWords[number];
+//   }
+//   var split = [];
+//   var num = number.toString();
+//   var tmp = ''
+//   for(var i=num.length-1;i>=0;i--){
+//     tmp = num[i] + tmp;
+//     if(tmp.length === 3){
+//       split.unshift(tmp);
+//       tmp = ''
+//     }
+//   }
+//   if(tmp!==''){
+//     split.unshift(tmp)
+//   }
+//   return split.map((item,index)=>{
+//     return index !== split.length-1 && item !== '000' ? toEnglishLessThanThousand(item) +' '+ numbersToPlace[Math.pow(1000,split.length-1-index)] : toEnglishLessThanThousand(item)
+//   }).join(' ').trim()
+// }
+
+// var toEnglishLessThanThousand = function (numStr){
+//   if(numbersToWords[numStr]){
+//     return numbersToWords[numStr] ;
+//   }
+//   var result = [];
+//   var hundred = Math.floor(numStr /100);
+//   numStr -= hundred*100;
+//   var ten = Math.floor(numStr/10);
+//   numStr -= ten * 10;
+//   var one = numStr;
+//   if(hundred !== 0){
+//     result.push(numbersToWords[hundred]+' hundred');
+//   }
+//   if(ten !==0 && ten>1){
+//     var tmp = '';
+//     tmp += numbersToWords[ten*10]
+//     if(one !== 0){
+//       tmp += '-'+numbersToWords[one]
+//     }
+//     result.push(tmp)
+//   }
+//   if(ten !==0 && ten<2){
+//     result.push(numbersToWords[ten*10+one]);
+//   }
+//   if(ten === 0 && one !== 0){
+//     result.push(numbersToWords[one])
+//   }
+//   return result.join(' ')
+// }
+// console.log((503).toEnglish())
+// console.log(toEnglishLessThanThousand('503'))
+
+
+
+
+
+// ref by mhv
 // Number.prototype.toEnglish = function () {
 //   var [int, frac] = ('' + this).split('.');
 //   var perThreeDigits = function (num) {
